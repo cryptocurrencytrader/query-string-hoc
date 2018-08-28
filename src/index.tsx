@@ -15,6 +15,7 @@ export type SyncStateWithQueryString = (state?: object) => void;
 
 export interface QueryStringInjectedProps<T = QueryStringData> {
   queryString: {
+    isTrusted: boolean;
     setQueryString: SetQueryString;
     state: T;
     syncStateWithQueryString: SyncStateWithQueryString;
@@ -64,6 +65,7 @@ function withQueryString<R>(
 
         this.state = {
           queryString: {
+            isTrusted: true,
             setQueryString: this.setQueryString,
             state: this.parseQueryString(this.props.location.search),
             syncStateWithQueryString: this.syncStateWithQueryString,
@@ -87,6 +89,7 @@ function withQueryString<R>(
         this.setState({
           queryString: {
             ...this.state.queryString,
+            isTrusted: true,
             state: this.parseQueryString(this.stateQuery),
           },
         });
@@ -121,6 +124,7 @@ function withQueryString<R>(
         this.setState({
           queryString: {
             ...this.state.queryString,
+            isTrusted: false,
             state,
           },
         });
